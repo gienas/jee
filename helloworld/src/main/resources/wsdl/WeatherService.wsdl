@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="WeatherWSDLFile" targetNamespace="http://tieto.cz/wheater/service" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:types="http://tieto.cz/wheater/service/types" xmlns:tns="http://tieto.cz/wheater/service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://tieto.cz/wheater/service/types" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:types="http://tieto.cz/wheater/service/types">
+			<xs:element name="GetWeatherError" type="types:GetWeatherError"/>
+			<xs:complexType name="GetWeatherError">
+				<xs:sequence>
+					<xs:element name="ClientErrorDescription" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Error presented to Client</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TechicalDetails" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="ErrorCode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="GetWeatherOutput" type="types:GetWeatherOutput"/>
+			<xs:complexType name="GetWeatherOutput">
+				<xs:sequence>
+					<xs:element name="Weather" type="types:Weather" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="Weather" type="types:Weather"/>
+			<xs:complexType name="Weather">
+				<xs:annotation>
+					<xs:documentation>Location name</xs:documentation>
+				</xs:annotation>
+				<xs:sequence>
+					<xs:element name="CityName" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Localization name</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Description" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Weather description</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Observation" type="types:Observation" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="Temperature" type="types:Temperature" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="Wind" type="types:Wind" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="Humidity" type="types:Humidity" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="Precipitation" type="types:Precipitation" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="Observation" type="types:Observation"/>
+			<xs:complexType name="Observation">
+				<xs:annotation>
+					<xs:documentation>Observation place (where sensors are located)</xs:documentation>
+				</xs:annotation>
+				<xs:sequence>
+					<xs:element name="Time" type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="PlaceName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="Temperature" type="types:Temperature"/>
+			<xs:complexType name="Temperature">
+				<xs:sequence>
+					<xs:element name="CValue" type="types:DecimalFraction1" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Temperature in Celsius</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="Wind" type="types:Wind"/>
+			<xs:complexType name="Wind">
+				<xs:sequence>
+					<xs:element name="Speed" type="types:DecimalFraction1" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Speed in kilometers per hour</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Direction" type="types:Direction" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="Description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="Humidity" type="types:Humidity"/>
+			<xs:complexType name="Humidity">
+				<xs:sequence>
+					<xs:element name="Value" type="types:DecimalFraction1" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Humidity value in percent</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:simpleType name="Direction">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="East"/>
+					<xs:enumeration value="East-Northeast"/>
+					<xs:enumeration value="East-Southeast"/>
+					<xs:enumeration value="North"/>
+					<xs:enumeration value="North-Northeast"/>
+					<xs:enumeration value="North-Northwest"/>
+					<xs:enumeration value="Northeast"/>
+					<xs:enumeration value="Northwest"/>
+					<xs:enumeration value="South"/>
+					<xs:enumeration value="South-Southeast"/>
+					<xs:enumeration value="South-Southwest"/>
+					<xs:enumeration value="Southeast"/>
+					<xs:enumeration value="Southwest"/>
+					<xs:enumeration value="West"/>
+					<xs:enumeration value="West-Northwest"/>
+					<xs:enumeration value="West-Southwest"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="DecimalFraction1">
+				<xs:restriction base="xs:decimal">
+					<xs:fractionDigits value="1"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:element name="Precipitation" type="types:Precipitation"/>
+			<xs:complexType name="Precipitation">
+				<xs:annotation>
+					<xs:documentation>Are precipitation present ?</xs:documentation>
+				</xs:annotation>
+				<xs:sequence>
+					<xs:element name="ArePresent" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="GetWeatherInput" type="types:GetWeatherInput"/>
+			<xs:complexType name="GetWeatherInput">
+				<xs:sequence>
+					<xs:element name="Locations" type="types:Locations" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="Location" type="types:Location"/>
+			<xs:complexType name="Location">
+				<xs:sequence>
+					<xs:element name="CityName" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>City name. If empty, services should return values for all predefined places.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="Locations" type="types:Locations"/>
+			<xs:complexType name="Locations">
+				<xs:sequence>
+					<xs:element name="Location" type="types:Location" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="GetWeatherOutput">
+		<wsdl:part name="GetWeatherOutput" type="types:GetWeatherOutput"/>
+	</wsdl:message>
+	<wsdl:message name="GetWeatherInput">
+		<wsdl:part name="GetWeatherInput" type="types:GetWeatherInput"/>
+	</wsdl:message>
+	<wsdl:message name="GetWeatherError">
+		<wsdl:part name="GetWeatherError" type="types:GetWeatherError"/>
+	</wsdl:message>
+	<wsdl:portType name="WeatherPortTypeSOAP">
+		<wsdl:operation name="getWeather">
+			<wsdl:input name="Request" message="tns:GetWeatherInput"/>
+			<wsdl:output name="Response" message="tns:GetWeatherOutput"/>
+			<wsdl:fault name="Error" message="tns:GetWeatherError"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="WeatherBindingSOAP" type="tns:WeatherPortTypeSOAP">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getWeather">
+			<soap:operation soapAction="/getWeather" style="document"/>
+			<wsdl:input name="Request">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="Response">
+				<soap:body use="literal"/>
+			</wsdl:output>
+			<wsdl:fault name="Error">
+				<soap:fault name="Error" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="WeatherService">
+		<wsdl:port name="SamplePortSOAP" binding="tns:WeatherBindingSOAP">
+			<soap:address location="http://www.exampleURI.com/WSDLPackage1/SamplePortSOAP"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
