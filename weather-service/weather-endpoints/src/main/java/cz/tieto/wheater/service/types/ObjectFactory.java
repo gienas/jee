@@ -44,14 +44,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Location }
-     * 
-     */
-    public Location createLocation() {
-        return new Location();
-    }
-
-    /**
      * Create an instance of {@link Wind }
      * 
      */
@@ -68,6 +60,62 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Humidity }
+     * 
+     */
+    public Humidity createHumidity() {
+        return new Humidity();
+    }
+
+    /**
+     * Create an instance of {@link GetWeatherError }
+     * 
+     */
+    public GetWeatherError createGetWeatherError() {
+        return new GetWeatherError();
+    }
+
+    /**
+     * Create an instance of {@link GetWeatherInput }
+     * 
+     */
+    public GetWeatherInput createGetWeatherInput() {
+        return new GetWeatherInput();
+    }
+
+    /**
+     * Create an instance of {@link Locations }
+     * 
+     */
+    public Locations createLocations() {
+        return new Locations();
+    }
+
+    /**
+     * Create an instance of {@link GetWeatherOutput }
+     * 
+     */
+    public GetWeatherOutput createGetWeatherOutput() {
+        return new GetWeatherOutput();
+    }
+
+    /**
+     * Create an instance of {@link Location }
+     * 
+     */
+    public Location createLocation() {
+        return new Location();
+    }
+
+    /**
+     * Create an instance of {@link Weather }
+     * 
+     */
+    public Weather createWeather() {
+        return new Weather();
+    }
+
+    /**
      * Create an instance of {@link Observation }
      * 
      */
@@ -81,54 +129,6 @@ public class ObjectFactory {
      */
     public Temperature createTemperature() {
         return new Temperature();
-    }
-
-    /**
-     * Create an instance of {@link Humidity }
-     * 
-     */
-    public Humidity createHumidity() {
-        return new Humidity();
-    }
-
-    /**
-     * Create an instance of {@link Locations }
-     * 
-     */
-    public Locations createLocations() {
-        return new Locations();
-    }
-
-    /**
-     * Create an instance of {@link GetWeatherError }
-     * 
-     */
-    public GetWeatherError createGetWeatherError() {
-        return new GetWeatherError();
-    }
-
-    /**
-     * Create an instance of {@link GetWeatherOutput }
-     * 
-     */
-    public GetWeatherOutput createGetWeatherOutput() {
-        return new GetWeatherOutput();
-    }
-
-    /**
-     * Create an instance of {@link Weather }
-     * 
-     */
-    public Weather createWeather() {
-        return new Weather();
-    }
-
-    /**
-     * Create an instance of {@link GetWeatherInput }
-     * 
-     */
-    public GetWeatherInput createGetWeatherInput() {
-        return new GetWeatherInput();
     }
 
     /**

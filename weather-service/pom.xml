@@ -8,24 +8,24 @@
 	<packaging>pom</packaging>
 	<name>weather-service</name>
 	<modules>
-		
-		<!--
-		
-		
-		<module>weather-endpoints</module>
-		-->
+
+		<!-- <module>weather-endpoints</module> -->
 		<module>weather-connectors</module>
 		<module>weather-model</module>
 		<module>weather-business</module>
 		<module>weather-endpoints</module>
-		
+
 	</modules>
 
 	<properties>
 		<cxf.version>2.7.8</cxf.version>
 		<wss4j.version>1.6.12</wss4j.version>
+
+		<sonar.exclusions>src/main/java/cz/tieto/wheater/service/**</sonar.exclusions>
+		<jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec</jacoco.ut.execution.data.file>
+		<sonar.jacoco.reportPath>${jacoco.ut.execution.data.file}</sonar.jacoco.reportPath>
 	</properties>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -66,15 +66,10 @@
 
 			<!-- JSF -->
 
-			<!--  
-			<dependency>
-				<groupId>javax.faces</groupId>
-				<artifactId>javax.faces-api</artifactId>
-				<version>2.2</version>
-			</dependency>
-			-->
+			<!-- <dependency> <groupId>javax.faces</groupId> <artifactId>javax.faces-api</artifactId> 
+				<version>2.2</version> </dependency> -->
 
-		<dependency>
+			<dependency>
 				<groupId>com.sun.faces</groupId>
 				<artifactId>jsf-api</artifactId>
 				<version>2.2.9</version>
@@ -86,7 +81,7 @@
 			</dependency>
 
 
-						<!-- Apache Cxf -->
+			<!-- Apache Cxf -->
 			<dependency>
 				<groupId>org.apache.cxf</groupId>
 				<artifactId>cxf-codegen-plugin</artifactId>
@@ -124,17 +119,17 @@
 				<groupId>${project.groupId}</groupId>
 				<artifactId>weather-connectors</artifactId>
 				<version>${project.version}</version>
-			</dependency>	
+			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>weather-business</artifactId>
 				<version>${project.version}</version>
-			</dependency>	
+			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>weather-endpoints</artifactId>
 				<version>${project.version}</version>
-			</dependency>	
+			</dependency>
 		</dependencies>
 
 
@@ -142,10 +137,68 @@
 
 	</dependencyManagement>
 
+
+
 	<dependencies>
 	</dependencies>
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- jacoco -->
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.7.5.201505241946</version>
+					<executions>
+						<!-- Prepares the property pointing to the JaCoCo runtime agent which 
+							is passed as VM argument when Maven the Surefire plugin is executed. -->
+						<execution>
+							<id>pre-unit-test</id>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+							<configuration>
+								<!-- Sets the path to the file which contains the execution data. -->
+								<destFile>${jacoco.ut.execution.data.file}</destFile>
+								<!-- Sets the name of the property containing the settings for JaCoCo 
+									runtime agent. -->
+								<propertyName>surefireArgLine</propertyName>
+							</configuration>
+						</execution>
+						<!-- Ensures that the code coverage report for unit tests is created 
+							after unit tests have been run. -->
+						<execution>
+							<id>post-unit-test</id>
+							<phase>test</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+							<configuration>
+								<!-- Sets the path to the file which contains the execution data. -->
+								<dataFile>${jacoco.ut.execution.data.file}</dataFile>
+								<!-- Sets the output directory for the code coverage report. -->
+								<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- Used for unit tests -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.15</version>
+					<configuration>
+						<!-- Sets the VM argument line used when unit tests are run. -->
+						<argLine>${surefireArgLine}</argLine>
+						<!-- Skips unit tests if the value of skip.unit.tests property is true -->
+						<skipTests>${skip.unit.tests}</skipTests>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 		<plugins>
 			<plugin>
 				<groupId>org.wildfly.plugins</groupId>
@@ -155,6 +208,14 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
+			<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>		
 		</plugins>
 	</build>
 </project>

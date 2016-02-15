@@ -27,17 +27,23 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
-		
-	<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>weather-model</artifactId>
-				<scope>provided</scope>	
-	</dependency>
-	<dependency>
-				<groupId>${project.groupId}</groupId>
-				<artifactId>weather-connectors</artifactId>
-				<scope>provided</scope>	
-	</dependency>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>weather-model</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>weather-connectors</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
